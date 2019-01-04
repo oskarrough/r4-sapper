@@ -16,10 +16,11 @@
 </div>
 
 <script>
-  // These are currently imported in template.html
-  // import algoliasearch from 'algoliasearch/lite'
-  // import autocomplete from 'autocomplete.js'
   import * as sapper from '../../__sapper__/client.js'
+  // These are currently imported in template.html
+  import algoliasearch from 'algoliasearch/lite'
+  //import autocomplete from 'autocomplete.js'
+
   export default {
     oncreate() {
       this.enableAutocomplete()
@@ -37,10 +38,12 @@
         var instance = autocomplete(
           this.refs.input,
           {
-						autoselect: true,
+            autoselect: true,
             hint: true,
+            debug: true,
             //autoselectOnBlur: true,
-            openOnFocus: true
+            openOnFocus: true,
+            ariaLabel: 'Search Radio4000 channels'
           },
           [
             {
