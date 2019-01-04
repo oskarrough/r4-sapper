@@ -1,0 +1,22 @@
+body {
+	margin: 0;
+	font-family: system-ui, Segoe UI, sans-serif;
+	font-size: 15px;
+	line-height: 1.3125;
+	background-color: hsl(40, 6%, 90%);
+	color: hsl(0, 0%, 10%); 
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0 0 1em 0;
+	line-height: 1.3;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+a {
+	color: inherit;
+}
+

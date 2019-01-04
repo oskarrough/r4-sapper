@@ -1,0 +1,15 @@
+{
+	"background_color": "#5d1ae6",
+	"theme_color": "#5d1ae6",
+	"name": "radio4000",
+	"short_name": "radio4000",
+	"display": "minimal-ui",
+	"start_url": "/",
+	"icons": [
+		{
+			"src": "favicon.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
+}

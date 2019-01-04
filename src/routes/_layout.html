@@ -1,0 +1,60 @@
+<svelte:window on:keydown="onKeydown(event)" />
+
+<div class="viewport">
+	<header>
+		<a href="/"><img src="icon-r4000.svg" alt="Radio4000" /></a>
+		<Autocomplete />
+	</header>
+	<main>
+		{#if preloading}
+			<p>Loading...</p>
+		{/if}
+		<svelte:component this={child.component} {...child.props}/>
+	</main>
+	<!-- <Nav segment={child.segment} /> -->
+</div>
+
+<style>
+	.viewport {
+		display: flex;
+		flex-flow: column;
+		min-height: 100vh;
+	}
+	header {
+		/*background: #5d1ae6;*/
+		display: flex;
+		flex-flow: row nowrap;
+    border-bottom: 1px solid;
+	}
+	header img {
+		height: 1.8rem;
+		margin: 0.7rem 0.6rem 0.5rem;
+	}
+	main {
+		display: flex;
+		flex-flow: column;
+		flex: 1;
+	}
+</style>
+
+<script>
+	export default {
+		components: {
+			//Nav: '../components/Nav.html',
+			Autocomplete: '../components/Autocomplete.html'
+		},
+		methods: {
+			onKeydown(event) {
+				const {keyCode} = event
+				console.log(keyCode)
+				if (keyCode === 191) this.focusInput()
+				if (keyCode === 27) this.focusInput(false)
+			},
+			focusInput(shouldFocus = true) {
+				event.preventDefault()
+				const input = this.options.target.querySelector('.aa-input')
+				shouldFocus ? input.focus() : input.blur()
+			}
+		}
+	}
+</script>
