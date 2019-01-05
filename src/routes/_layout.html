@@ -7,11 +7,12 @@
 	</header>
 	<main>
 		{#if preloading}
-			<p>Loading...</p>
+		<!-- <p>Loading...</p> -->
 		{/if}
-		<svelte:component this={child.component} {...child.props}/>
+		<!-- <radio4000-player channel-slug={$slug}></radio4000-player> -->
+		<iframe src={'https://api.radio4000.com/embed?slug=' + $slug} width="320" height="500" title="Radio4000" />
+			<svelte:component this={child.component} {...child.props}/>
 	</main>
-	<!-- <Nav segment={child.segment} /> -->
 </div>
 
 <style>
@@ -24,7 +25,6 @@
 		/*background: #5d1ae6;*/
 		display: flex;
 		flex-flow: row nowrap;
-    border-bottom: 1px solid;
 	}
 	header img {
 		height: 1.8rem;
@@ -35,12 +35,17 @@
 		flex-flow: column;
 		flex: 1;
 	}
+	iframe {
+		flex: 1;
+		width: 100%;
+		height: auto;
+		border: 0;
+	}
 </style>
 
 <script>
 	export default {
 		components: {
-			//Nav: '../components/Nav.html',
 			Autocomplete: '../components/Autocomplete.html'
 		},
 		methods: {

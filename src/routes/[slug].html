@@ -1,4 +1,6 @@
-<iframe src={'https://api.radio4000.com/embed?slug=' + params.slug} width="320" height="500" frameborder="0" title={params.slug}></iframe>
+{#if channel.body}
+	<p>{channel.body}</p>
+{/if}
 
 <script>
   import {findChannelBySlug} from 'radio4000-sdk'
@@ -13,9 +15,8 @@
 </script>
 
 <style>
-  iframe {
-    flex: 1;
-    width: 100%;
-		height: auto;
-  }
+	p {
+		text-align: center;
+		margin: 1rem;
+	}
 </style>
