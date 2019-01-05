@@ -1,18 +1,14 @@
 <iframe src={'https://api.radio4000.com/embed?slug=' + params.slug} width="320" height="500" frameborder="0" title={params.slug}></iframe>
 
 <script>
-  //import {endpoint, toArray} from '../utils/db.js'
+  import {findChannelBySlug} from 'radio4000-sdk'
 
   export default {
-		/*
     async preload({params, query}) {
-      const {slug} = params
-      const res = await this.fetch(
-        endpoint + `/channels.json?orderBy="slug"&startAt="${slug}"&endAt="${slug}"`
-      )
-      const json = await res.json()
-      return {channel: toArray(json)[0]}
-    }*/
+      const channel = await findChannelBySlug(params.slug)
+      this.store.set({slug: channel.slug})
+      return {channel}
+    }
   }
 </script>
 
