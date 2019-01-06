@@ -2,6 +2,8 @@
 	<header>
 		<a href="/"><img src="icon-r4000.svg" alt="Radio4000" /></a>
 		<Autocomplete />
+		<a href="/channels">list</a>
+		<a href="/about">about</a>
 	</header>
 
 	<main>
@@ -31,6 +33,11 @@
 	header img {
 		height: 1.8rem;
 		margin: 0.7rem 0.6rem 0.5rem;
+	}
+	header a:not(:first-child) {
+		color: #fdfff5;
+		padding: 1em;
+		text-decoration: none;
 	}
 	main {
 		display: flex;

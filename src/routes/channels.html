@@ -1,0 +1,34 @@
+<ul>
+	{#each channels as channel (channel.id)}
+		<li><a href="{channel.slug}">{channel.title}</a></li>
+	{/each}
+	{#if isLoading}
+		<li>Loading...</li>
+	{:elseif channels.length < 11}
+		<li><button on:click="loadMore()">Load more</button></li>
+	{/if}
+</ul>
+
+<script>
+	import {findChannels} from 'radio4000-sdk'
+
+	export default {
+		data() {
+			return {isLoading: false}
+		},
+		async preload({params}) {
+			const cache = this.store.get().channels
+			if (cache) return {channels: cache}
+			const channels = await findChannels(10)
+			return {channels}
+		},
+		methods: {
+			async loadMore() {
+				this.set({isLoading: true})
+				const channels = await findChannels()
+				this.set({channels, isLoading: false})
+				this.store.set({channels})
+			}
+		}
+	}
+</script>
