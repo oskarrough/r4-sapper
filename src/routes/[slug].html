@@ -3,19 +3,19 @@
 {/if}
 
 <script>
-  import {findChannelBySlug} from 'radio4000-sdk'
+	import {findChannelBySlug} from 'radio4000-sdk'
 
-  export default {
-    async preload({params}) {
-      try {
-        const channel = await findChannelBySlug(params.slug)
-        this.store.set({slug: channel.slug})
-        return {channel}
-      } catch (err) {
-        this.error(404, 'Not found')
-      }
-    }
-  }
+	export default {
+		async preload({params}) {
+			try {
+				const channel = await findChannelBySlug(params.slug)
+				this.store.set({slug: channel.slug})
+				return {channel}
+			} catch (err) {
+				this.error(404, 'Not found')
+			}
+		}
+	}
 </script>
 
 <style>
