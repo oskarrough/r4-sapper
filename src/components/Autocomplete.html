@@ -1,5 +1,7 @@
 <!-- <r4-autocomplete on:selected="selected(event)"></r4-autocomplete> -->
 
+<svelte:window on:keydown="onKeydown(event)" />
+
 <div class="aa-container" on:selected="selected(event)">
   <input
     ref:input
@@ -29,21 +31,33 @@
       selected(channel) {
         sapper.goto(`/${channel.slug}`)
       },
+			onKeydown(event) {
+				const {keyCode} = event
+				if (keyCode === 191) this.clearSearch()
+				if (keyCode === 27) this.clearSearch()
+			},
+			clearSearch() {
+				const {search} = this.get()
+				search.autocomplete.setVal('')
+			},
       enableAutocomplete() {
         // Enable algolia index.
         var client = algoliasearch('7FFSURJR0X', 'dba2e03ef95f278d5fbe76d4cd80b6bf')
         var index = client.initIndex('radio4000_channels')
 
         // Enable autocomplete ui
-        var instance = autocomplete(
+        var search = autocomplete(
           this.refs.input,
           {
             autoselect: true,
+            clearOnSelected: true,
             hint: true,
             debug: true,
             //autoselectOnBlur: true,
             openOnFocus: true,
-            ariaLabel: 'Search Radio4000 channels'
+            ariaLabel: 'Search Radio4000 channels',
+            // 27 = esc, 191 = /
+            keyboardShortcuts: ['s', 27, 191]
           },
           [
             {
@@ -61,8 +75,11 @@
           ]
         )
 
+        // Save the instance.
+        this.set({search})
+
         // Send a custom event up.
-        instance.on('autocomplete:selected', (event, suggestion, dataset) => {
+        search.on('autocomplete:selected', (event, suggestion, dataset) => {
           this.selected(suggestion)
         })
       }

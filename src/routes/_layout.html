@@ -1,5 +1,3 @@
-<svelte:window on:keydown="onKeydown(event)" />
-
 <div class="viewport">
 	<header>
 		<a href="/"><img src="icon-r4000.svg" alt="Radio4000" /></a>
@@ -51,19 +49,6 @@
 	export default {
 		components: {
 			Autocomplete: '../components/Autocomplete.html'
-		},
-		methods: {
-			onKeydown(event) {
-				const {keyCode} = event
-				console.log(keyCode)
-				if (keyCode === 191) this.focusInput()
-				if (keyCode === 27) this.focusInput(false)
-			},
-			focusInput(shouldFocus = true) {
-				event.preventDefault()
-				const input = this.options.target.querySelector('.aa-input')
-				shouldFocus ? input.focus() : input.blur()
-			}
 		}
 	}
 </script>
