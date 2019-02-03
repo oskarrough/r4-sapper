@@ -1,18 +1,17 @@
 <div class="viewport">
 	<header>
-		<a href="/"><img src="icon-r4000.svg" alt="Radio4000" /></a>
+		<a href="/"><img src="icon-r4.svg" alt="Radio4000" /></a>
 		<Autocomplete />
-		<a href="/channels">channels</a>
-		<a href="/about">about</a>
+		<a href="/channels">see all</a>
+		<!-- <a href="/about">About</a> -->
 	</header>
 
 	<main>
+		<svelte:component this={child.component} {...child.props}/>
 		{#if $slug}
 			<!-- <radio4000-player channel-slug={$slug}></radio4000-player> -->
 			<iframe src={'https://api.radio4000.com/embed?slug=' + $slug} width="320" height="500" title="Radio4000" />
 		{/if}
-
-		<svelte:component this={child.component} {...child.props}/>
 	</main>
 </div>
 
@@ -29,10 +28,11 @@
 		background: #222;
 		display: flex;
 		flex-flow: row nowrap;
+		place-items: center;
 	}
 	header img {
-		height: 1.8rem;
-		margin: 0.7rem 0.6rem 0.5rem;
+		height: 1.6rem;
+		margin: 0.75rem 0.1rem 0.5rem 0.6rem;
 	}
 	header a:not(:first-child) {
 		color: #fdfff5;
