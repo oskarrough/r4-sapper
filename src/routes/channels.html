@@ -4,31 +4,31 @@
 	{/each}
 	{#if isLoading}
 		<li>Loading...</li>
-	{:elseif channels.length < 11}
-		<li><button on:click="loadMore()">Load more</button></li>
+	{:else if channels.length < 11}
+		<li><button on:click={loadMore()}>Load more</button></li>
 	{/if}
 </ul>
 
-<script>
-	import {findChannels} from 'radio4000-sdk'
+<script context="module">
+import {findChannels} from '../radio4000-sdk'
 
-	export default {
-		data() {
-			return {isLoading: false}
-		},
-		async preload({params}) {
-			const cache = this.store.get().channels
-			if (cache) return {channels: cache}
-			const channels = await findChannels(10)
-			return {channels}
-		},
-		methods: {
-			async loadMore() {
-				this.set({isLoading: true})
-				const channels = await findChannels()
-				this.set({channels, isLoading: false})
-				this.store.set({channels})
-			}
-		}
-	}
+export let channels = []
+export let isLoading = false
+
+export async function preload(page, session) {
+	const cache = this.store.get().channels
+
+	if (cache) return {channels: cache}
+
+	const channels = await findChannels(10)
+	return {channels}
+}
+
+async function loadMore() {
+	isLoading = true
+	const channels = await findChannels()
+	isLoading = false
+	channels = channels
+	this.store.set({channels})
+}
 </script>

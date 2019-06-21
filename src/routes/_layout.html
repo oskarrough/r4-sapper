@@ -1,19 +1,8 @@
-<div class="viewport">
-	<header>
-		<a href="/"><img src="icon-r4.svg" alt="Radio4000" /></a>
-		<Autocomplete />
-		<a href="/channels">see all</a>
-		<!-- <a href="/about">About</a> -->
-	</header>
+<script>
+	import Autocomplete from '../components/Autocomplete.html'
 
-	<main>
-		<svelte:component this={child.component} {...child.props}/>
-		{#if $slug}
-			<!-- <radio4000-player channel-slug={$slug}></radio4000-player> -->
-			<iframe src={'https://api.radio4000.com/embed?slug=' + $slug} width="320" height="500" title="Radio4000" />
-		{/if}
-	</main>
-</div>
+export let slug = ''
+</script>
 
 <style>
 	.viewport {
@@ -52,10 +41,20 @@
 	}
 </style>
 
-<script>
-	export default {
-		components: {
-			Autocomplete: '../components/Autocomplete.html'
-		}
-	}
-</script>
+<div class="viewport">
+	<header>
+		<a href="/"><img src="icon-r4.svg" alt="Radio4000" /></a>
+		<Autocomplete />
+		<a href="/channels">see all</a>
+		<!-- <a href="/about">About</a> -->
+	</header>
+
+	<main>
+		<slot></slot>
+		{#if slug}
+			<!-- <radio4000-player channel-slug={$slug}></radio4000-player> -->
+			<iframe src={'https://api.radio4000.com/embed?slug=' + slug} width="320" height="500" title="Radio4000" />
+		{/if}
+	</main>
+</div>
+
