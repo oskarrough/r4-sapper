@@ -24,7 +24,6 @@ a {
 .aa-container {
 	display: inline-block;
 	position: relative;
-	width: 300px;
 }
 
 .algolia-autocomplete {
