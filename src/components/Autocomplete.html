@@ -4,6 +4,7 @@
 
 <div class="aa-container" on:selected={selected}>
 	<input
+		bind:this={searchInput}
 		type="search"
 		class="aa-input-search"
 		placeholder="Search Radio4000..."
@@ -18,11 +19,15 @@
 
 <script>
 //import * as sapper from '../../__sapper__/client.js'
-//import * as sapper from '@sapper/app'
+import * as sapper from '@sapper/app'
 // These are currently imported in template.html
-import algoliasearch from 'algoliasearch/lite'
+// import algoliasearch from 'algoliasearch/lite'
+// import algoliasearch from 'algoliasearch/src/browser/builds/algoliasearch.js'
 import {onMount} from 'svelte'
 //import autocomplete from 'autocomplete.js'
+
+let searchInstance
+let searchInput
 
 onMount(() => {
 	enableAutocomplete()
@@ -39,18 +44,17 @@ function onKeydown(event) {
 }
 
 function clearSearch() {
-	const {search} = this.get()
-	search.autocomplete.setVal('')
+	searchInstance.autocomplete.setVal('')
 }
 
 function enableAutocomplete() {
 	// Enable algolia index.
-	var client = algoliasearch('7FFSURJR0X', 'dba2e03ef95f278d5fbe76d4cd80b6bf')
+	var client = window.algoliasearch('7FFSURJR0X', 'dba2e03ef95f278d5fbe76d4cd80b6bf')
 	var index = client.initIndex('radio4000_channels')
 
 	// Enable autocomplete ui
-	var search = autocomplete(
-		this.refs.input,
+	searchInstance = autocomplete(
+		searchInput,
 		{
 			autoselect: true,
 			clearOnSelected: true,
@@ -78,12 +82,9 @@ function enableAutocomplete() {
 		]
 	)
 
-	// Save the instance.
-	this.set({search})
-
 	// Send a custom event up.
-	search.on('autocomplete:selected', (event, suggestion, dataset) => {
-		this.selected(suggestion)
+	searchInstance.on('autocomplete:selected', (event, suggestion, dataset) => {
+		selected(suggestion)
 	})
 }
 </script>
