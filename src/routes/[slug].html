@@ -1,29 +1,24 @@
-{#if channel.body}
-	<p>{channel.body}</p>
-{/if}
+<center>
+	<h1>
+		{channel.title}
+	</h1>
+	<p>
+		{channel.body}
+	</p>
+</center>
 
-<script>
+<script context="module">
 //import {findChannelBySlug} from 'radio4000-sdk'
 import {findChannelBySlug} from '../radio4000-sdk'
 
-export let channel
-
 export async function preload(page) {
 	const {slug} = page.params
-	console.log(slug)
-	try {
-		const channel = await findChannelBySlug(slug)
-		this.store.set({slug: channel.slug})
-		return {channel}
-	} catch (err) {
-		this.error(404, 'Not found')
-	}
+	const channel = await findChannelBySlug(slug)
+	// this.store.set({slug: channel.slug})
+	return {channel}
 }
 </script>
 
-<style>
-	p {
-		text-align: center;
-		margin: 1rem;
-	}
-</style>
+<script>
+export let channel
+</script>
